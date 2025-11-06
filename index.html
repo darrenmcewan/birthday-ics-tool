@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV to ICS Converter</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📅 CSV to ICS Converter</h1>
+            <p>Convert your CSV birthdays into calendar events</p>
+        </div>
+        
+        <div class="content">
+            <!-- Step 1: Upload CSV -->
+            <div class="step" id="step1">
+                <div class="step-title">Step 1: Upload CSV File</div>
+                
+                <!-- Helper Section -->
+                <div class="helper-section">
+                    <div class="helper-title">📋 CSV Format Guide</div>
+                    <p>Your CSV file should contain the following columns:</p>
+                    <div class="helper-columns">
+                        <div class="helper-column">
+                            <strong>name</strong>
+                            <span>Person's name</span>
+                        </div>
+                        <div class="helper-column">
+                            <strong>birthdate</strong>
+                            <span>Date of birth</span>
+                        </div>
+                        <div class="helper-column">
+                            <strong>note</strong>
+                            <span>Optional notes</span>
+                        </div>
+                    </div>
+                    <div class="helper-example">
+                        <strong>Example CSV:</strong>
+                        <code>name;birthdate;note
+John Doe;15/03/1990;Best friend
+Jane Smith;22/07/1985;Coworker
+Bob Johnson;01/12/1995;</code>
+                    </div>
+                </div>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📁</div>
+                    <p><strong>Click to select</strong> or drag and drop your CSV file here</p>
+                    <input type="file" id="csvFile" accept=".csv">
+                </div>
+                <div id="fileInfo"></div>
+                
+                <!-- CSV Preview (hidden initially) -->
+                <div id="csvPreviewSection" style="display: none;">
+                    <div class="preview-header">
+                        <strong>📊 File Preview</strong>
+                        <button class="toggle-preview-btn" id="togglePreviewBtn">Hide Preview</button>
+                    </div>
+                    <div id="csvPreview" class="csv-table-container"></div>
+                </div>
+            </div>
+            
+            <!-- Step 2: Configure Settings -->
+            <div class="step mapping-section" id="step2">
+                <div class="step-title">Step 2: Customize Settings</div>
+                
+                <div class="mapping-row">
+                    <div class="mapping-label">CSV Delimiter:</div>
+                    <select id="delimiter">
+                        <option value=",">Comma (,)</option>
+                        <option value=";">Semicolon (;)</option>
+                        <option value="\t">Tab</option>
+                        <option value="|">Pipe (|)</option>
+                    </select>
+                </div>
+                
+                <div class="mapping-row">
+                    <div class="mapping-label">Date Format:</div>
+                    <input type="text" id="dateFormat" value="DD/MM/YYYY" placeholder="e.g., DD/MM/YYYY, MM/DD/YYYY">
+                </div>
+                
+                <div class="mapping-row">
+                    <div class="mapping-label">Max Age:</div>
+                    <input type="number" id="maxAge" value="100" min="1" max="150">
+                </div>
+            </div>
+            
+            <!-- Step 3: Map Columns -->
+            <div class="step mapping-section" id="step3">
+                <div class="step-title">Step 3: Map Your Columns</div>
+                
+                <div class="mapping-row">
+                    <div class="mapping-label">Name Column:</div>
+                    <select id="nameColumn"></select>
+                </div>
+                
+                <div class="mapping-row">
+                    <div class="mapping-label">Date Column:</div>
+                    <select id="dateColumn"></select>
+                </div>
+                
+                <div class="mapping-row">
+                    <div class="mapping-label">Note Column:</div>
+                    <select id="noteColumn">
+                        <option value="">None (Optional)</option>
+                    </select>
+                </div>
+                
+                <div class="preview" id="preview"></div>
+            </div>
+            
+            <!-- Step 4: Convert -->
+            <div class="step mapping-section" id="step4">
+                <div class="step-title">Step 4: Generate ICS File</div>
+                <button class="btn" id="convertBtn">Convert to ICS</button>
+                <div class="success-message" id="successMsg"></div>
+                <div class="error-message" id="errorMsg"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
