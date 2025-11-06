@@ -31,19 +31,8 @@ Bob Johnson;01/12/1995;
 - **Privacy First**: Everything runs in your browser - no data is uploaded
 
 
-## 🛠️ Technical Details
-
-- Pure client-side application (HTML, CSS, JavaScript)
-- Uses PapaParse library for robust CSV parsing
-- Generates RFC 5545 compliant iCalendar files
-
 
 ## 💡 Tips
 
 - The app creates recurring birthday events up to the specified max age
 - The preview shows the first 10 rows of your CSV
-
-
-## 📄 License
-
-Free to use and modify.
